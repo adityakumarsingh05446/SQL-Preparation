@@ -1,0 +1,612 @@
+STRING RELATED FUNCTIONS
+--------------------------    REVISE
+
+1. ASCII
+
+Return the ASCII value of the first character in "CustomerName":
+
+SELECT CustomerName, ASCII(CustomerName) AS NumCodeOfFirstChar
+FROM Customers;
+
+CustomerName	                 NumCodeOfFirstChar
+Alfreds Futterkiste	                65
+Ana Trujillo Emparedados y helados	65
+
+
+2. CHAR_LENGTH // different from length()
+
+The CHAR_LENGTH() function return the length of a string (in characters).
+
+SELECT CHAR_LENGTH("SQL Tutorial") AS LengthOfString;
+
+LengthOfString
+12
+
+
+3. CONCAT()
+
+Add several strings together:
+SELECT CONCAT("SQL ", "Tutorial ", "is ", "fun!") AS ConcatenatedString;
+
+ConcatenatedString
+SQL Tutorial is fun!
+
+4. CONCAT_WS()
+
+Add several expressions together, and add a "-" separator between them:
+
+SELECT CONCAT_WS("-", "SQL", "Tutorial", "is", "fun!") AS ConcatenatedString;
+
+ConcatenatedString
+SQL-Tutorial-is-fun!
+
+
+
+5. FIELD()
+
+The FIELD() function returns the index position of a value in a list of values.
+
+This function performs a case-insensitive search.
+
+Note: If the specified value is not found in the list of values, this function will return 0. 
+If value is NULL, this function will return 0.
+
+Syntax
+FIELD(value, val1, val2, val3, ...)
+
+SELECT FIELD("q", "s", "q", "l"); // index starts from 1 ...
+
+FIELD("q", "s", "q", "l")
+2
+
+
+6. FIND_IN_SET()  // See its difference from FIELD
+
+The FIND_IN_SET() function returns the position of a string within a list of strings.
+
+SELECT FIND_IN_SET("q", "s,q,l");
+FIND_IN_SET("q", "s,q,l")
+2
+
+
+7. FORMAT() // remember mostly asked
+
+The FORMAT() function formats a number to a format like "#,###,###.##", 
+rounded to a specified number of decimal places.
+Syntax
+FORMAT(number, decimal_places)
+
+SELECT FORMAT(250500.5634, 2);
+FORMAT(250500.5634, 2)
+250,500.56
+
+
+8. INSERT() // Clear this concept twice
+
+The INSERT() function inserts a string within a string at the specified 
+position and for a certain number of characters.
+
+INSERT(string, position, number, string2)
+
+Parameter	           Description
+string	                    Required. The string that will be modified
+position	            Required. The position where to insert string2
+number	                    Required. The number of characters to replace
+string2	                    Required. The string to insert into string
+
+SELECT INSERT("W3Schools.com", 1, 9, "Example");
+
+INSERT("W3Schools.com", 1, 9, "Example")
+Example.com
+
+
+9. LCASE()
+The LCASE() function converts a string to lower-case.
+SELECT LCASE("SQL Tutorial is FUN!");
+
+
+10. LEFT() and RIGHT()
+
+The LEFT() function extracts a number of characters from a string (starting from left).
+
+SELECT LEFT("SQL Tutorial", 3) AS ExtractString;
+
+
+ExtractString
+SQL
+
+
+11. LENGTH()  // different from CHAR_LENGTH()
+The LENGTH() function returns the length of a string (in bytes).
+
+SELECT LENGTH("SQL Tutorial") AS LengthOfString;
+LengthOfString
+12
+
+
+
+12. LOCATE() OR POSITION() // Both function works as same
+The LOCATE() function returns the position of the first occurrence of a substring in a string.
+
+SELECT LOCATE("3", "W3Schools.com") AS MatchPosition;
+MatchPosition
+2
+
+SELECT POSITION("3" IN "W3Schools.com") AS MatchPosition;
+MatchPosition
+2
+
+
+
+13. LPAD() and RPAD()
+The LPAD() function left-pads a string with another string, to a certain length.
+The RPAD() function right-pads a string with another string, to a certain length.
+
+SELECT LPAD("SQL Tutorial", 20, "ABC");
+LPAD("SQL Tutorial", 20, "ABC")
+ABCABCABSQL Tutorial
+
+SELECT RPAD("SQL Tutorial", 20, "ABC");
+RPAD("SQL Tutorial", 20, "ABC")
+SQL TutorialABCABCAB
+
+14. LTRIM() , RTRIM() and TRIM()
+
+The LTRIM() function removes leading spaces from a string.
+
+SELECT LTRIM("     SQL Tutorial") AS LeftTrimmedString;
+LeftTrimmedString
+SQL Tutorial
+
+The RTRIM() function removes trailing spaces from a string.
+SELECT RTRIM("SQL Tutorial    ") AS RightTrimmedString;
+RightTrimmedString
+SQL Tutorial
+
+The TRIM() function removes leading and trailing spaces from a string.
+SELECT TRIM('    SQL Tutorial    ') AS TrimmedString;
+TrimmedString
+SQL Tutorial
+
+
+15. SUBSTRING()   **IMPORTANT** // IN MYSQL IT IS SUBSTR  ALSO CHECK MID()
+The SUBSTRING() function extracts a substring from a string (starting at any position).
+
+SUBSTRING(string, start, length) 
+SELECT SUBSTRING("SQL Tutorial", 5, 3) AS ExtractString;
+ExtractString
+Tut
+
+16. SUBSTRING_INDEX()
+The SUBSTRING_INDEX() function returns a substring of a string before a specified number of delimiter occurs.
+
+SUBSTRING_INDEX(string, delimiter, number)
+
+SELECT SUBSTRING_INDEX("www.w3schools.com", ".", 1);
+SUBSTRING_INDEX("www.w3schools.com", ".", 1)
+www
+
+
+17. REPEAT()
+The REPEAT() function repeats a string as many times as specified.
+
+Syntax
+REPEAT(string, number)
+
+SELECT REPEAT("SQL Tutorial", 3);
+
+REPEAT("SQL Tutorial", 3)
+SQL TutorialSQL TutorialSQL Tutorial   // here check how spaces are working
+
+18. REPLACE()
+
+The REPLACE() function replaces all occurrences of a substring within a string, with a new substring.
+Note: This function performs a case-sensitive replacement.
+
+Syntax
+REPLACE(string, from_string, new_string)
+
+SELECT REPLACE("SQL Tutorial", "SQL", "HTML");
+
+REPLACE("SQL Tutorial", "SQL", "HTML")
+HTML Tutorial
+
+19. REVERSE()  **MOST IMPORTANT**
+
+The REVERSE() function reverses a string and returns the result.
+
+Syntax
+REVERSE(string)
+
+SELECT REVERSE("SQL Tutorial");
+REVERSE("SQL Tutorial")
+lairotuT LQS
+
+
+20. STRCMP()  **MOST IMPORTANT** // Remember its output
+
+The STRCMP() function compares two strings.
+
+Syntax
+STRCMP(string1, string2)
+
+Return Values
+If string1 = string2, this function returns 0
+If string1 < string2, this function returns -1
+If string1 > string2, this function returns 1
+
+SELECT STRCMP("SQL Tutorial", "SQL Tutorial");
+
+STRCMP("SQL Tutorial", "SQL Tutorial")
+0
+
+
+
+
+--------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------
+
+
+NUMERIC FUNCTIONS
+
+
+1. ABS()
+
+The ABS() function returns the absolute (positive) value of a number.
+
+Syntax
+ABS(number)
+
+SELECT ABS(-243.5);
+ABS(-243.5)
+243.5
+
+2. AVG()
+
+SELECT AVG(Price) AS AveragePrice FROM Products;
+AveragePrice
+28.866364
+
+3. CEIL() and FLOOR()
+
+The CEIL() function returns the smallest integer value that is bigger than or equal to a number.
+SELECT CEIL(25.75);
+CEIL(25.75)
+26
+
+The FLOOR() function returns the largest integer value that is smaller than or equal to a number.
+SELECT FLOOR(25.75);
+FLOOR(25.75)
+25
+
+4. ROUND() and TRUNCATE() // Here keep eye on the diff between the two.
+
+The ROUND() function rounds a number to a specified number of decimal places.
+SELECT ROUND(135.375, 2); // similar we have format() function in string.
+ROUND(135.375, 2)
+135.38
+
+The TRUNCATE() function truncates a number to the specified number of decimal places.
+SELECT TRUNCATE(135.375, 2);
+TRUNCATE(135.375, 2)
+135.37
+
+5. GREATEST() and LEAST()
+
+Return the greatest value of the list of arguments:
+SELECT GREATEST(3, 12, 34, 8, 25);
+GREATEST(3, 12, 34, 8, 25)
+34
+
+SELECT LEAST(3, 12, 34, 8, 25);
+LEAST(3, 12, 34, 8, 25)
+3
+
+6. DIV() and EXP()
+
+Integer division (10/5):
+SELECT 10 DIV 5;
+10 DIV 5
+2
+
+The EXP() function returns e raised to the power of the specified number.
+The constant e (2.718281...), is the base of natural logarithms.
+
+SELECT EXP(1);
+EXP(1)
+2.718281828459045
+
+
+7. COUNT()
+The COUNT() function returns the number of records returned by a select query.
+SELECT COUNT(ProductID) AS NumberOfProducts FROM Products;
+
+8. MAX(),MIN(),MOD(),SUM,SQRT()
+
+SELECT MAX(Price) AS LargestPrice FROM Products;
+SELECT MIN(Price) AS SmallestPrice FROM Products;
+
+The MOD() function returns the remainder of a number divided by another number.
+Syntax
+MOD(x, y)
+SELECT MOD(18, 4);
+
+MOD(18, 4)
+2
+
+The SUM() function calculates the sum of a set of values.
+SELECT SUM(Quantity) AS TotalItemsOrdered FROM OrderDetails;
+
+Return the square root of a number:
+
+SELECT SQRT(64);
+
+
+9. POWER()
+Return 4 raised to the second power:
+SELECT POWER(4, 2);
+POWER(4, 2)
+16
+
+10. RAND()
+Return a random decimal number (no seed value - so it returns a completely random number >= 0 and <1):
+The RAND() function returns a random number between 0 (inclusive) and 1 (exclusive).
+SELECT RAND();
+RAND()
+0.9557695108985245
+
+11. SIGN()
+The SIGN() function returns the sign of a number.
+
+This function will return one of the following:
+
+If number > 0, it returns 1
+If number = 0, it returns 0
+If number < 0, it returns -1
+
+SELECT SIGN(255.5);
+SIGN(255.5)
+1
+
+12. DEGRESS()
+The DEGREES() function converts a value in radians to degrees
+SELECT DEGREES(1.5);
+DEGREES(1.5)
+85.94366926962348
+
+13. LN , LOG , LOG10 , LOG2
+
+The LN() function returns the natural logarithm of a number.
+SELECT LN(2);
+
+
+The LOG() function returns the natural logarithm of a specified number, 
+or the logarithm of the number to the specified base.
+Syntax
+LOG(number)
+OR:
+LOG(base, number)
+
+SELECT LOG(2);
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+
+DATE FUNCTION()
+
+
+1. NOW()
+Return current date and time:
+SELECT NOW();
+2021-08-03 08:40:50
+Return current date and time + 1:
+SELECT NOW() + 1;
+
+
+2. CURRENT_DATE() and CURRENT_TIME()
+
+SELECT CURRENT_DATE();
+2021-08-03
+
+SELECT CURRENT_TIME();
+08:42:34
+
+3. DATE()
+The DATE() function extracts the date part from a datetime expression.
+SELECT DATE("2017-06-15 09:34:21");
+2017-06-15
+SELECT DATE("The date is 2017-06-15");
+DATE("The date is 2017-06-15")
+
+4. EXTRACT() **IMPORTANT**
+
+The EXTRACT() function extracts a part from a given date.
+Syntax
+EXTRACT(part FROM date)
+
+SELECT EXTRACT(MONTH FROM "2017-06-15");
+EXTRACT(MONTH FROM "2017-06-15")
+6
+
+5. DATE_ADD() , DATE_SUB() , DATEDIFF()
+
+The DATE_ADD() function adds a time/date interval to a date and then returns the date.
+Syntax
+DATE_ADD(date, INTERVAL value addunit)
+SELECT DATE_ADD("2017-06-15", INTERVAL 10 DAY); // INTERVAL IS A FUNCTION -> REMEMBER IT
+2017-06-25
+
+
+SELECT DATE_SUB("2017-06-15", INTERVAL 10 DAY);
+2017-06-05
+
+Return the number of days between two date values:
+
+SELECT DATEDIFF("2017-06-25", "2017-06-15");
+DATEDIFF("2017-06-25", "2017-06-15")
+10
+
+
+6. DATE_FORMAT()  **IMPORTANT**
+
+Format	                    Description
+%W	                    Weekday name in full (Sunday to Saturday)
+%e	                    Day of the month as a numeric value (0 to 31)
+
+SELECT DATE_FORMAT("2017-06-15", "%M %d %Y");
+SELECT DATE_FORMAT("2017-06-15", "%W %M %e %Y");
+
+SELECT DATE_FORMAT(BirthDate, "%W %M %e %Y") FROM Employees;
+DATE_FORMAT(BirthDate, "%W %M %e %Y")
+Sunday December 8 1968
+Tuesday February 19 1952
+Friday August 30 1963
+Friday September 19 1958
+Friday March 4 1955
+Tuesday July 2 1963
+Sunday May 29 1960
+Thursday January 9 1958
+Wednesday July 2 1969
+
+
+
+
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+
+
+
+ADVANCE FUNCTION()
+
+
+1. BIN()
+
+Return a binary representation of 15:
+SELECT BIN(15);
+1111
+
+2. BINARY()
+Convert a value to a binary string:
+SELECT BINARY "W3Schools.com";
+W3Schools.com
+
+3. CASE()
+
+SELECT OrderID, Quantity,
+CASE
+    WHEN Quantity > 30 THEN "The quantity is greater than 30"
+    WHEN Quantity = 30 THEN "The quantity is 30"
+    ELSE "The quantity is under 30"
+END
+FROM OrderDetails;
+
+SELECT CustomerName, City, Country
+FROM Customers
+ORDER BY
+(CASE
+    WHEN City IS NULL THEN Country
+    ELSE City
+END);
+
+4. COALESCE()
+
+The COALESCE() function returns the first non-null value in a list.
+Syntax
+COALESCE(val1, val2, ...., val_n)
+
+SELECT COALESCE(NULL, NULL, NULL, 'W3Schools.com', NULL, 'Example.com');
+W3Schools.com
+
+5. CONVERT() *IMPORTANT*
+
+The CONVERT() function converts a value into the specified datatype or character set.
+Syntax
+CONVERT(value, type)
+
+SELECT CONVERT("2017-08-29", DATE);
+SELECT CONVERT(150, CHAR);
+SELECT CONVERT("14:06:10", TIME);
+
+6. LAST_INSERT_ID() // very useful sometimes
+
+Return the AUTO_INCREMENT id of the last row that has been inserted or updated in a table:
+SELECT LAST_INSERT_ID();
+
+7. IF(),IFNULL(),ISNULL(),NULLIF()
+
+
+IF()
+Syntax
+IF(condition, value_if_true, value_if_false)
+
+SELECT IF(500<1000, "YES", "NO");
+YES
+
+IFNULL()
+
+Return the specified value IF the expression is NULL, otherwise return the expression:
+SELECT IFNULL("Hello", "W3Schools.com");
+Hello
+
+SELECT IFNULL(NULL, 500);
+500
+
+
+ISNULL() 
+
+Tip: Always use IS NULL to look for NULL values.
+
+The ISNULL() function returns 1 or 0 depending on whether an expression is NULL.
+If expression is NULL, this function returns 1. Otherwise, it returns 0.
+
+Syntax
+ISNULL(expression)
+
+SELECT ISNULL("");
+0
+SELECT ISNULL(350);
+0
+
+SELECT CustomerName, ContactName, Address
+FROM Customers
+WHERE Address IS NULL;
+
+
+
+MOST IMP
+--------------
+
+NULLIF() *****IMP*****        STRCMP() only works with string but NULLIF works with int and string both
+
+The NULLIF() function compares two expressions and         returns NULL if they are equal. 
+Otherwise, the first expression is returned.
+
+Syntax
+NULLIF(expr1, expr2)
+
+SELECT NULLIF(25, 25);*************   // returns NULL if they are equal. 
+BLANK
+
+SELECT NULLIF(25, "Hello");
+25
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
